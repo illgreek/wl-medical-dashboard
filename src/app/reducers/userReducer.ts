@@ -1,5 +1,7 @@
 // reducers/userReducer.ts
 
+import { Dispatch } from 'redux';
+
 interface UserState {
     name: string;
     email: string;
@@ -21,6 +23,8 @@ const initialState: UserState = {
 const userReducer = (state = initialState, action: { type: string; payload: any }) => {
     switch (action.type) {
         case 'REGISTER_USER':
+            // Удаление куки, если форма зарегистрирована успешно
+            document.cookie = 'user=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
             return { ...state, ...action.payload };
         default:
             return state;
