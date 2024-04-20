@@ -48,8 +48,8 @@ const RegistrationForm = () => {
                 <select name="sex" value={formData.sex} onChange={handleChange}
                         className="block w-full px-4 py-2 mb-4 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 text-black">
                     <option value="">Select Sex</option>
-                    <option value="He">He</option>
-                    <option value="She">She</option>
+                    <option value="He">Male</option>
+                    <option value="She">Female</option>
                     <option value="Other">Other</option>
                 </select>
                 <input type="number" name="height" placeholder="Height" value={formData.height} onChange={handleChange}
