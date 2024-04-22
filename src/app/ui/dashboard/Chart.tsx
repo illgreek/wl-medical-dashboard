@@ -22,7 +22,7 @@ const ChartComponent = () => {
                 borderColor: '#FF7BAC',
                 backgroundColor: 'rgba(255, 255, 255, 0)',
                 fill: {
-                    target: "origin", // Set the fill options
+                    target: "origin",
                     above: "rgba(255, 0, 0, 0.3)"
                 }
             },
@@ -39,7 +39,7 @@ const ChartComponent = () => {
                 borderColor: '#6598FA',
                 backgroundColor: 'rgba(255, 255, 255, 0)',
                 fill: {
-                    target: "origin", // Set the fill options
+                    target: "origin",
                     above: "rgba(0,123,255,0.3)"
                 }
             },

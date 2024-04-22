@@ -18,7 +18,6 @@ const Home = () => {
                 <Chart />
                 <UserCalendar />
             </div>
-
         </main>
     );
 };

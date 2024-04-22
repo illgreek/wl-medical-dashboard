@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../reducers/rootReducer';
 import RegistrationForm from './RegistrationForm';
-import LeftSidebar from "@/app/ui/static/LeftSidebar"; // Добавлен импорт LeftSidebar
+import LeftSidebar from "@/app/ui/static/LeftSidebar";
 import { useCookies } from 'react-cookie';
 import UserInfoPanel from "@/app/ui/static/UserInfoPanel";
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
@@ -35,7 +35,6 @@ const RegistrationChecker = ({ children }: { children: React.ReactNode }) => {
         return null; // Render nothing while checking for user data
     }
 
-    // Функция для переключения видимости боковой панели
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
     };
@@ -53,11 +52,9 @@ const RegistrationChecker = ({ children }: { children: React.ReactNode }) => {
                         <div className={`${isSidebarOpen ? 'pl-64' : ''}`}>
                             {/* Render the children components */}
                             <UserInfoPanel/>
-                            {/* Key добавлен для перерендеринга компонента AppointmentCard */}
                             {React.cloneElement(children as React.ReactElement, { key: isSidebarOpen ? 'appointment-card-open' : 'appointment-card-closed' })}
                         </div>
                     </div>
-                    {/* Стрелка для отображения/скрытия боковой панели */}
                     {!isSidebarOpen && (
                         <button className='bg-blue text-white rounded-full p-2 fixed bottom-4 left-4' onClick={toggleSidebar}>
                             <FiChevronRight size={24} />

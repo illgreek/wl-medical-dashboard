@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'; // Импорт иконок из библиотеки react-icons/fi
+import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import { usePathname } from 'next/navigation';
 
 interface LeftSidebarProps {
     isSidebarOpen: boolean;
@@ -9,6 +10,8 @@ interface LeftSidebarProps {
 }
 
 const LeftSidebar = ({ isSidebarOpen, toggleSidebar }: LeftSidebarProps) => {
+    const pathname = usePathname();
+
     // State to track hover status for each link
     const [hoveredLink, setHoveredLink] = useState<string | null>(null);
 
@@ -31,73 +34,93 @@ const LeftSidebar = ({ isSidebarOpen, toggleSidebar }: LeftSidebarProps) => {
                 {/* Menu Items */}
                 <ul className="text-light_blue flex flex-col flex-1 gap-1">
                     <li className="p-2">
-                        <Link href="/" className="flex items-center py-2 hover:text-blue"
+                        <Link href="/" className="flex items-center py-2"
                               onMouseEnter={() => handleMouseEnter('dashboard')}
                               onMouseLeave={() => handleMouseLeave()}>
-                            {hoveredLink === 'dashboard' ? (
-                                <img src="/assets/grid-hover.svg" alt="Grid Hover" className="mr-2 w-6 h-6" />
-                            ) : (
-                                <img src="/assets/grid.svg" alt="Grid" className="mr-2 w-6 h-6" />
-                            )}
-                            Dashboard
+                            <div className="flex items-center">
+                                {hoveredLink === 'dashboard' || pathname === '/' ? (
+                                    <img src="/assets/grid-hover.svg" alt="Grid Hover" className="mr-2 w-6 h-6" />
+                                ) : (
+                                    <img src="/assets/grid.svg" alt="Grid" className="mr-2 w-6 h-6" />
+                                )}
+                                <span className={pathname === '/' ? 'text-blue' : ''}>
+                                    Dashboard
+                                </span>
+                            </div>
                         </Link>
                     </li>
                     <li className="p-2">
-                        <Link href="/my-doctors" className="flex items-center py-2 hover:text-blue"
+                        <Link href="/my-doctors" className="flex items-center py-2"
                               onMouseEnter={() => handleMouseEnter('my-doctors')}
                               onMouseLeave={() => handleMouseLeave()}>
-                            {hoveredLink === 'my-doctors' ? (
-                                <img src="/assets/stethoscope-hover.svg" alt="Stethoscope Hover" className="mr-2 w-6 h-6" />
-                            ) : (
-                                <img src="/assets/stethoscope.svg" alt="Stethoscope" className="mr-2 w-6 h-6" />
-                            )}
-                            My Doctors
+                            <div className="flex items-center">
+                                {hoveredLink === 'my-doctors' || pathname === '/my-doctors' ? (
+                                    <img src="/assets/stethoscope-hover.svg" alt="Stethoscope Hover" className="mr-2 w-6 h-6" />
+                                ) : (
+                                    <img src="/assets/stethoscope.svg" alt="Stethoscope" className="mr-2 w-6 h-6" />
+                                )}
+                                <span className={pathname === '/my-doctors' ? 'text-blue' : ''}>
+                                    My Doctors
+                                </span>
+                            </div>
                         </Link>
                     </li>
                     <li className="p-2">
-                        <Link href="/test-results" className="flex items-center py-2 hover:text-blue"
+                        <Link href="/test-results" className="flex items-center py-2"
                               onMouseEnter={() => handleMouseEnter('test-results')}
                               onMouseLeave={() => handleMouseLeave()}>
-                            {hoveredLink === 'test-results' ? (
-                                <img src="/assets/clipboard-hover.svg" alt="Clipboard Hover" className="mr-2 w-6 h-6" />
-                            ) : (
-                                <img src="/assets/clipboard.svg" alt="Clipboard" className="mr-2 w-6 h-6" />
-                            )}
-                            Test Results
+                            <div className="flex items-center">
+                                {hoveredLink === 'test-results' || pathname === '/test-results' ? (
+                                    <img src="/assets/clipboard-hover.svg" alt="Clipboard Hover" className="mr-2 w-6 h-6" />
+                                ) : (
+                                    <img src="/assets/clipboard.svg" alt="Clipboard" className="mr-2 w-6 h-6" />
+                                )}
+                                <span className={pathname === '/test-results' ? 'text-blue' : ''}>
+                                    Test Results
+                                </span>
+                            </div>
                         </Link>
                     </li>
                     <li className="p-2">
-                        <Link href="/my-consultations" className="flex items-center py-2 hover:text-blue"
+                        <Link href="/my-consultations" className="flex items-center py-2"
                               onMouseEnter={() => handleMouseEnter('my-consultations')}
                               onMouseLeave={() => handleMouseLeave()}>
-                            {hoveredLink === 'my-consultations' ? (
-                                <img src="/assets/conversation-hover.svg" alt="Conversation Hover" className="mr-2 w-6 h-6" />
-                            ) : (
-                                <img src="/assets/conversation.svg" alt="Conversation" className="mr-2 w-6 h-6" />
-                            )}
-                            My Consultations
+                            <div className="flex items-center">
+                                {hoveredLink === 'my-consultations' || pathname === '/my-consultations' ? (
+                                    <img src="/assets/conversation-hover.svg" alt="Conversation Hover" className="mr-2 w-6 h-6" />
+                                ) : (
+                                    <img src="/assets/conversation.svg" alt="Conversation" className="mr-2 w-6 h-6" />
+                                )}
+                                <span className={pathname === '/my-consultations' ? 'text-blue' : ''}>
+                                    My Consultations
+                                </span>
+                            </div>
                         </Link>
                     </li>
                     <li className="p-2">
-                        <Link href="/settings" className="flex items-center py-2 hover:text-blue"
+                        <Link href="/settings" className="flex items-center py-2"
                               onMouseEnter={() => handleMouseEnter('settings')}
                               onMouseLeave={() => handleMouseLeave()}>
-                            {hoveredLink === 'settings' ? (
-                                <img src="/assets/settings-hover.svg" alt="Settings Hover" className="mr-2 w-6 h-6" />
-                            ) : (
-                                <img src="/assets/settings.svg" alt="Settings" className="mr-2 w-6 h-6" />
-                            )}
-                            Settings
+                            <div className="flex items-center">
+                                {hoveredLink === 'settings' || pathname === '/settings' ? (
+                                    <img src="/assets/settings-hover.svg" alt="Settings Hover" className="mr-2 w-6 h-6" />
+                                ) : (
+                                    <img src="/assets/settings.svg" alt="Settings" className="mr-2 w-6 h-6" />
+                                )}
+                                <span className={pathname === '/settings' ? 'text-blue' : ''}>
+                                    Settings
+                                </span>
+                            </div>
                         </Link>
                     </li>
                 </ul>
-                {/* Кнопка для сокрытия боковой панели */}
+
                 <div className="mt-auto mb-4">
                     <button className='bg-blue text-white rounded-full p-2 fixed bottom-4 left-4' onClick={toggleSidebar}>
                         {isSidebarOpen ? (
-                            <FiChevronLeft size={24} /> // Используем иконку для скрытия
+                            <FiChevronLeft size={24} />
                         ) : (
-                            <FiChevronRight size={24} /> // Используем иконку для открытия
+                            <FiChevronRight size={24} />
                         )}
                     </button>
                 </div>
