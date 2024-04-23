@@ -1,53 +1,55 @@
 'use client'
 import React from 'react';
-import DataTable from 'react-data-table-component';
+import {
+    MaterialReactTable,
+    useMaterialReactTable,
+    type MRT_ColumnDef,
+} from 'material-react-table';
 
-// Данные для таблицы
-import data from '../data/table.json';
+import testData from '../data/table.json';
 
-const DataTableComponent = () => {
-    // Настройки колонок таблицы
-    const columns = [
-        {
-            name: 'Test Name',
-            selector: 'testName',
-            sortable: true,
-        },
-        {
-            name: 'Status',
-            selector: 'status',
-            sortable: true,
-        },
-        {
-            name: 'Result',
-            selector: 'result',
-            sortable: true,
-        },
-        {
-            name: 'Doctor',
-            selector: 'doctor',
-            sortable: true,
-        },
-        {
-            name: 'Date',
-            selector: 'date',
-            sortable: true,
-        },
+type TestResult = {
+    testName: string;
+    status: string;
+    result: string | null;
+    doctor: string;
+    date: string;
+};
+
+const TestResults = () => {
+
+    const columns: MRT_ColumnDef<TestResult>[] = [
+        { accessorKey: 'testName', header: 'Test', size: 200 },
+        { accessorKey: 'status', header: 'Status', size: 150 },
+        { accessorKey: 'result', header: 'Result', size: 150 },
+        { accessorKey: 'doctor', header: 'Doctor', size: 150 },
+        { accessorKey: 'date', header: 'Date', size: 150 },
     ];
 
+    const table = useMaterialReactTable({
+        columns,
+        data: testData,
+        muiTablePaperProps: {
+            sx: {
+                borderRadius: '0.5rem',
+                boxShadow: 'none',
+            },
+        },
+
+        muiTableHeadCellProps: {
+            sx: {
+                color: '#8BACED',
+            },
+        }
+    });
+
     return (
-        <div>
-            <h1>Medical Test Results</h1>
-            <DataTable
-                title="Medical Test Results"
-                columns={columns}
-                data={data}
-                pagination
-                highlightOnHover
-                responsive
+        <div className="pt-4 px-8 pb-6">
+            <MaterialReactTable
+                table={table}
             />
         </div>
     );
 };
 
-export default DataTableComponent;
+export default TestResults;

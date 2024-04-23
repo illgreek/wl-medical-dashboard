@@ -56,7 +56,7 @@ const RegistrationChecker = ({ children }: { children: React.ReactNode }) => {
                         </div>
                     </div>
                     {!isSidebarOpen && (
-                        <button className='bg-blue text-white rounded-full p-2 fixed bottom-4 left-4' onClick={toggleSidebar}>
+                        <button className='bg-blue text-white rounded-full p-2 fixed bottom-4 left-4 z-10' onClick={toggleSidebar}>
                             <FiChevronRight size={24} />
                         </button>
                     )}

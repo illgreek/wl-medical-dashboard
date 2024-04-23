@@ -15,7 +15,7 @@ interface Doctor {
 
 const DoctorCard = ({ doctor }: { doctor: Doctor }) => {
     const { name, specialty, experience, city, state, imageUrl } = doctor;
-    const [cookies, setCookie] = useCookies(['user']); // Используем куки
+    const [cookies, setCookie] = useCookies(['user']);
 
     const handleBookConsultation = (selectedDate: string, selectedTime: string) => {
         if (!selectedDate || !selectedTime) {
@@ -41,7 +41,6 @@ const DoctorCard = ({ doctor }: { doctor: Doctor }) => {
             return;
         }
 
-        // Формируем объект с информацией о выбранном враче и дате/времени консультации
         const selectedDoctor = {
             name: name,
             specialty: specialty,
@@ -49,10 +48,8 @@ const DoctorCard = ({ doctor }: { doctor: Doctor }) => {
             bookedTime: selectedTime
         };
 
-        // Добавляем информацию о выбранном враче в массив
         const updatedDoctorsArray = [...doctorsArray, selectedDoctor];
 
-        // Обновляем куки пользователя с обновленным массивом врачей
         const updatedUser = { ...cookies.user, doctors: updatedDoctorsArray };
         setCookie('user', JSON.stringify(updatedUser), { path: '/' });
 
