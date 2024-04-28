@@ -9,12 +9,14 @@ import { useCookies } from 'react-cookie';
 import UserInfoPanel from "@/app/ui/static/UserInfoPanel";
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 
+const defaultAvatar = '/assets/user.png'; // Default avatar image path
+
 const RegistrationChecker = ({ children }: { children: React.ReactNode }) => {
     const dispatch = useDispatch();
     const user = useSelector((state: RootState) => state.user);
     const [cookies, setCookie] = useCookies(['user']);
     const [isChecking, setIsChecking] = useState(true);
-    const [isSidebarOpen, setIsSidebarOpen] = useState(true); // Состояние для отслеживания открытия/закрытия боковой панели
+    const [isSidebarOpen, setIsSidebarOpen] = useState(true); // State to track the sidebar's open/closed status
 
     // Load user data from cookies only once on component mount
     useEffect(() => {
@@ -45,7 +47,7 @@ const RegistrationChecker = ({ children }: { children: React.ReactNode }) => {
             {Object.values(user).some(value => value) ? (
                 <>
                     <div className={` overflow-y-auto`}>
-                        {/* Key добавлен для перерендеринга компонента LeftSidebar */}
+                        {/* Render the LeftSidebar component if it's open */}
                         {isSidebarOpen && <LeftSidebar key="sidebar" isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />}
 
                         {/* Main Content */}
@@ -55,6 +57,7 @@ const RegistrationChecker = ({ children }: { children: React.ReactNode }) => {
                             {React.cloneElement(children as React.ReactElement, { key: isSidebarOpen ? 'appointment-card-open' : 'appointment-card-closed' })}
                         </div>
                     </div>
+                    {/* Render the sidebar toggle button if the sidebar is closed */}
                     {!isSidebarOpen && (
                         <button className='bg-blue text-white rounded-full p-2 fixed bottom-4 left-4 z-10' onClick={toggleSidebar}>
                             <FiChevronRight size={24} />
@@ -62,18 +65,13 @@ const RegistrationChecker = ({ children }: { children: React.ReactNode }) => {
                     )}
                 </>
             ) : (
-                // If no user data exists, render the registration form
-                <RegistrationForm />
+                // If no user data exists, render the registration form with default avatar
+                <RegistrationForm  />
             )}
         </div>
     );
 };
 
 export default RegistrationChecker;
-
-
-
-
-
 
 

@@ -1,19 +1,32 @@
 'use client'
-import React from 'react';
+import React, { useState } from 'react';
+// @ts-ignore
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
-import 'react-big-calendar/lib/css/react-big-calendar.css'; // Импорт стилей календаря
+import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { useCookies } from 'react-cookie';
+
+interface Doctor {
+    name: string;
+    specialty: string;
+    bookedDate: string;
+    bookedTime: string;
+}
+
+interface Event {
+    title: string;
+    start: Date;
+    end: Date;
+}
 
 const localizer = momentLocalizer(moment);
 
 const UserCalendar = () => {
-    // Получаем данные пользователя из куки
     const [cookies] = useCookies(['user']);
+    console.log(cookies);
     const user = cookies.user;
 
-    // Массив стандартных встреч врачей
-    const defaultDoctors = [
+    const defaultDoctors: Doctor[] = [
         {
             name: "Dr. Sarah Johnson",
             specialty: "Dermatologist",
@@ -28,17 +41,14 @@ const UserCalendar = () => {
         }
     ];
 
-    // Используем стандартные данные, если данные в куки отсутствуют или поле doctors не определено
-    const doctors = user && user.doctors ? user.doctors : defaultDoctors;
+    const doctors: Doctor[] = user && user.doctors ? user.doctors : defaultDoctors;
 
-    // Преобразуем данные в формат событий календаря
-    const events = doctors.map(doctor => ({
+    const events: Event[] = doctors.map((doctor: Doctor) => ({
         title: `${doctor.name} (${doctor.specialty})`,
         start: new Date(doctor.bookedDate + 'T' + doctor.bookedTime),
         end: new Date(doctor.bookedDate + 'T' + doctor.bookedTime),
     }));
 
-    // Настройки цветов
     const colors = {
         background: "#E5EEFF",
         pink: "#FF7BAC",
@@ -49,24 +59,37 @@ const UserCalendar = () => {
         gray: "#A7A7A7",
     };
 
+    // State to manage the current date and view of the calendar
+    const [currentDate, setCurrentDate] = useState(new Date());
+    const [currentView, setCurrentView] = useState<string>('month');
+
     return (
-        <div className="user-calendar-container" style={{ height: 500 }}>
+        <div className="user-calendar-container px-8 pt-4 pb-6" style={{ height: 500 }}>
             <Calendar
                 localizer={localizer}
                 events={events}
                 startAccessor="start"
                 endAccessor="end"
-                views={['month', 'week', 'day', 'agenda']} // Добавляем доступные виды календаря
-                style={{ height: '100%', backgroundColor: colors.background }} // Применяем стиль для высоты и цвет фона календаря
-                eventPropGetter={event => ({
+                views={['month', 'week', 'day', 'agenda']}
+                style={{ height: '100%', backgroundColor: colors.white }}
+                eventPropGetter={(event: Event) => ({
                     style: {
-                        backgroundColor: colors.pink, // Цвет фона для событий
-                        color: colors.black, // Цвет текста для событий
+                        backgroundColor: colors.pink,
+                        color: colors.white,
                     },
                 })}
+                // Handle navigation events
+                onNavigate={(newDate: Date) => setCurrentDate(newDate)}
+                // Handle view change events
+                onView={(newView: string) => setCurrentView(newView)}
+                // Set the current date and view
+                date={currentDate}
+                view={currentView}
             />
         </div>
     );
 };
 
 export default UserCalendar;
+
+

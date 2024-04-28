@@ -9,10 +9,9 @@ const UserInfoSidebar = () => {
     const [temperature, setTemperature] = useState('');
     const [weatherIcon, setWeatherIcon] = useState('');
     const [userLocation, setUserLocation] = useState('');
-    const [cookies, removeCookie] = useCookies(['user']);
-    const [showExitButton, setShowExitButton] = useState(false); // State to control the visibility of the "Exit" button
-    const [userInfo, setUserInfo] = useState<{ name: string } | null>(null); // State to store user information
-    const [showChevronUp, setShowChevronUp] = useState(false); // State to control the visibility of the upward chevron
+    const [cookies] = useCookies(['user']);
+    const [showExitButton, setShowExitButton] = useState(false);
+    const [userInfo, setUserInfo] = useState<{ name: string, avatar: string } | null>(null);
 
     const fetchTime = async () => {
         try {
@@ -30,7 +29,7 @@ const UserInfoSidebar = () => {
                 params: {
                     q: userLocation,
                     appid: '170f594e14baa4dd2d04aa316901836a',
-                    units: 'metric', // Получаем температуру в градусах Цельсия
+                    units: 'metric',
                 }
             });
             const { temp } = response.data.main;
@@ -64,7 +63,6 @@ const UserInfoSidebar = () => {
     }, [userLocation]);
 
     useEffect(() => {
-        // Get user info from cookies
         if (cookies.user) {
             setUserInfo(cookies.user);
         }
@@ -76,8 +74,7 @@ const UserInfoSidebar = () => {
     };
 
     const handleNameClick = () => {
-        setShowExitButton(!showExitButton); // Toggle the visibility of the "Exit" button
-        setShowChevronUp(!showChevronUp); // Toggle the visibility of the upward chevron
+        setShowExitButton(!showExitButton);
     };
 
     return (
@@ -104,19 +101,30 @@ const UserInfoSidebar = () => {
             </div>
 
             <div className="flex flex-row items-center gap-2">
-                <Image
-                    src="/assets/user.png"
-                    alt="User Photo"
-                    className="rounded-full"
-                    height={24}
-                    width={24}
-                />
+                {/* Render user photo */}
+                {userInfo && userInfo.avatar ? (
+                    <Image
+                        src={userInfo.avatar}
+                        alt="User Photo"
+                        className="rounded-full"
+                        height={24}
+                        width={24}
+                    />
+                ) : (
+                    <Image
+                        src="/assets/user.png"
+                        alt="User Photo"
+                        className="rounded-full"
+                        height={24}
+                        width={24}
+                    />
+                )}
 
                 {/* Render user name */}
                 {userInfo && (
                     <div className="relative text-center cursor-pointer" onClick={handleNameClick}>
                         <p className="select-none font-medium">
-                            {userInfo.name} {showChevronUp ? <>&#9652;</> : <>&#9662;</>} {/* Downward or upward chevron */}
+                            {userInfo.name} {showExitButton ? <>&#9652;</> : <>&#9662;</>}
                         </p>
                         {/* Conditionally render "Exit" button */}
                         {showExitButton && (
@@ -132,3 +140,4 @@ const UserInfoSidebar = () => {
 };
 
 export default UserInfoSidebar;
+

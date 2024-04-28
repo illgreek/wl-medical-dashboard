@@ -225,7 +225,7 @@ p, h1, h2, h3, h4, h5, h6{
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Затемнение фона */
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -233,11 +233,11 @@ p, h1, h2, h3, h4, h5, h6{
 
 .video-popup {
   position: relative;
-  width: 80%; /* Ширина попапа */
-  height: 80%; /* Высота попапа */
-  background-color: #fff; /* Цвет фона попапа */
-  border-radius: 8px; /* Закругление углов */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Тень */
+  width: 80%;
+  height: 80%;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .close-btn {
@@ -251,3 +251,35 @@ p, h1, h2, h3, h4, h5, h6{
   color: #000;
 }
 
+
+.rbc-month-view .rbc-month-row div,
+.rbc-time-view .rbc-time-header-content,
+.rbc-agenda-view table .rbc-agenda-time-cell,
+.rbc-agenda-view table .rbc-agenda-date-cell {
+  color: black !important;
+}
+
+.rbc-toolbar button{
+  color: #FF7BAC !important;
+  background: #FFF2F7 !important;
+  border: none !important;
+}
+
+.rbc-toolbar button:active, .rbc-toolbar button.rbc-active, .rbc-toolbar button:hover {
+  color: #FFFFFF !important;
+  background: #FF7BAC !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.rbc-toolbar{
+  margin-bottom: unset !important;
+  background: transparent !important;
+  padding-bottom: 20px !important;
+}
+
+.rbc-calendar{
+  border-radius: 0.5rem !important;
+  border: none !important;
+  padding: 20px !important;
+}
