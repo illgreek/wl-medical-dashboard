@@ -106,7 +106,7 @@ const UserInfoSidebar = () => {
                     <Image
                         src={userInfo.avatar}
                         alt="User Photo"
-                        className="rounded-full"
+                        className="rounded-full h-8 w-8"
                         height={24}
                         width={24}
                     />
@@ -114,7 +114,7 @@ const UserInfoSidebar = () => {
                     <Image
                         src="/assets/user.png"
                         alt="User Photo"
-                        className="rounded-full"
+                        className="rounded-full h-8 w-8"
                         height={24}
                         width={24}
                     />
