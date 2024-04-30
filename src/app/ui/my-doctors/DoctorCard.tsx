@@ -1,8 +1,9 @@
-'use client'
+'use client';
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { useCookies } from 'react-cookie';
 import Swal from 'sweetalert2';
+import Link from 'next/link'; // Import Link from next.js
 
 interface Doctor {
     name: string;
@@ -58,6 +59,14 @@ const DoctorCard = ({ doctor }: { doctor: Doctor }) => {
             icon: 'success',
             title: 'Success!',
             text: `Consultation booked for ${selectedDate} at ${selectedTime}.`,
+            showCancelButton: true,
+            confirmButtonText: 'My Consultations', // Add the "My Consultations" button
+            cancelButtonText: 'Close',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Redirect to My Consultations page
+                <Link href="/my-consultations" />;
+            }
         });
     };
 

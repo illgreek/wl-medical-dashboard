@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import { useCookies } from 'react-cookie';
 import Image from "next/image";
 
@@ -28,7 +28,7 @@ const UserProfileForm = () => {
         }
     }, [cookies.user]);
 
-    const handleChange = (e) => {
+    const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
         setFormData({
             ...formData,
@@ -36,21 +36,23 @@ const UserProfileForm = () => {
         });
     };
 
-    const handleAvatarChange = (e) => {
-        const file = e.target.files[0];
-        const reader = new FileReader();
-        reader.onloadend = () => {
-            const avatarData = reader.result;
-            setFormData({
-                ...formData,
-                avatar: avatarData // Update avatar data
-            });
-            setCookie('user', { ...formData, avatar: avatarData }, { path: '/' }); // Save updated avatar data in the cookie
-        };
-        reader.readAsDataURL(file);
+    const handleAvatarChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                const avatarData = reader.result;
+                setFormData({
+                    ...formData,
+                    avatar: avatarData // Update avatar data
+                });
+                setCookie('user', { ...formData, avatar: avatarData }, { path: '/' }); // Save updated avatar data in the cookie
+            };
+            reader.readAsDataURL(file);
+        }
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setCookie('user', formData, { path: '/' });
         alert('Form submitted successfully!');
@@ -144,11 +146,3 @@ const UserProfileForm = () => {
 };
 
 export default UserProfileForm;
-
-
-
-
-
-
-
-

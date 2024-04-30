@@ -1,4 +1,3 @@
-// RegistrationChecker.tsx
 'use client';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -34,7 +33,14 @@ const RegistrationChecker = ({ children }: { children: React.ReactNode }) => {
     }, [user, setCookie]);
 
     if (isChecking) {
-        return null; // Render nothing while checking for user data
+        return (
+            <div className="flex justify-center items-center h-screen">
+                {/* Render a loader here */}
+                <div className="spinner-border text-primary" role="status">
+                    <span className="sr-only">Loading...</span>
+                </div>
+            </div>
+        );
     }
 
     const toggleSidebar = () => {
@@ -73,5 +79,3 @@ const RegistrationChecker = ({ children }: { children: React.ReactNode }) => {
 };
 
 export default RegistrationChecker;
-
-

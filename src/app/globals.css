@@ -283,3 +283,9 @@ p, h1, h2, h3, h4, h5, h6{
   border: none !important;
   padding: 20px !important;
 }
+
+.header-links:hover span{
+  color: #1A65F5 !important;
+}
+
+

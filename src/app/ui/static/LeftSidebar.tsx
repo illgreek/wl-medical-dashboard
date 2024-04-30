@@ -34,7 +34,7 @@ const LeftSidebar = ({ isSidebarOpen, toggleSidebar }: LeftSidebarProps) => {
                 {/* Menu Items */}
                 <ul className="text-light_blue flex flex-col flex-1 gap-1">
                     <li className="p-2">
-                        <Link href="/" className="flex items-center py-2"
+                        <Link href="/" className="flex items-center py-2 header-links"
                               onMouseEnter={() => handleMouseEnter('dashboard')}
                               onMouseLeave={() => handleMouseLeave()}>
                             <div className="flex items-center">
@@ -50,7 +50,7 @@ const LeftSidebar = ({ isSidebarOpen, toggleSidebar }: LeftSidebarProps) => {
                         </Link>
                     </li>
                     <li className="p-2">
-                        <Link href="/my-doctors" className="flex items-center py-2"
+                        <Link href="/my-doctors" className="flex items-center py-2 header-links"
                               onMouseEnter={() => handleMouseEnter('my-doctors')}
                               onMouseLeave={() => handleMouseLeave()}>
                             <div className="flex items-center">
@@ -66,7 +66,7 @@ const LeftSidebar = ({ isSidebarOpen, toggleSidebar }: LeftSidebarProps) => {
                         </Link>
                     </li>
                     <li className="p-2">
-                        <Link href="/test-results" className="flex items-center py-2"
+                        <Link href="/test-results" className="flex items-center py-2 header-links"
                               onMouseEnter={() => handleMouseEnter('test-results')}
                               onMouseLeave={() => handleMouseLeave()}>
                             <div className="flex items-center">
@@ -82,7 +82,7 @@ const LeftSidebar = ({ isSidebarOpen, toggleSidebar }: LeftSidebarProps) => {
                         </Link>
                     </li>
                     <li className="p-2">
-                        <Link href="/my-consultations" className="flex items-center py-2"
+                        <Link href="/my-consultations" className="flex items-center py-2 header-links"
                               onMouseEnter={() => handleMouseEnter('my-consultations')}
                               onMouseLeave={() => handleMouseLeave()}>
                             <div className="flex items-center">
@@ -98,7 +98,7 @@ const LeftSidebar = ({ isSidebarOpen, toggleSidebar }: LeftSidebarProps) => {
                         </Link>
                     </li>
                     <li className="p-2">
-                        <Link href="/settings" className="flex items-center py-2"
+                        <Link href="/settings" className="flex items-center py-2 header-links"
                               onMouseEnter={() => handleMouseEnter('settings')}
                               onMouseLeave={() => handleMouseLeave()}>
                             <div className="flex items-center">
