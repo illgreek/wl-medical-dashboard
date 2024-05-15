@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../reducers/rootReducer';
+import rootReducer from '../reducers/rootReducer';
 import RegistrationForm from './RegistrationForm';
 import LeftSidebar from "@/app/ui/static/LeftSidebar";
 import { useCookies } from 'react-cookie';
@@ -13,8 +13,10 @@ const defaultAvatar = '/assets/user.png'; // Default avatar image path
 
 const RegistrationChecker = ({ children }: { children: React.ReactNode }) => {
     const dispatch = useDispatch();
+    // Define a type for the root state
+    type RootState = ReturnType<typeof rootReducer>;
 
-// Then use RootState in useSelector
+    // Then use RootState in useSelector
     const loading = useSelector((state: RootState) => state.loading.loading);
     const user = useSelector((state: RootState) => state.user);
     const [cookies, setCookie] = useCookies(['user']);

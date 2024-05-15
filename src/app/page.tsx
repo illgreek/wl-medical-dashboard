@@ -2,13 +2,14 @@
 'use client';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { RootState } from './reducers/rootReducer';
+import rootReducer from './reducers/rootReducer';
 import Image from 'next/image';
 import UserInformation from "@/app/ui/dashboard/UserInformation";
 import Chart from "@/app/ui/dashboard/Chart";
 import UserCalendar from "@/app/ui/dashboard/UserCalendar";
 
 const Home = () => {
+    type RootState = ReturnType<typeof rootReducer>;
     const user = useSelector((state: RootState) => state.user);
 
     return (
