@@ -24,11 +24,13 @@ const RegistrationChecker = ({ children }: { children: React.ReactNode }) => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
     useEffect(() => {
-        const userData = cookies['user'];
-        if (userData && !Object.values(user).some(value => value)) {
-            dispatch({ type: 'REGISTER_USER', payload: userData });
-        }
-        setIsChecking(false);
+        setTimeout(() => { // Start of timeout block
+            const userData = cookies['user'];
+            if (userData && !Object.values(user).some(value => value)) {
+                dispatch({ type: 'REGISTER_USER', payload: userData });
+            }
+            setIsChecking(false);
+        }, 500); // Delay set to 500 milliseconds
     }, []);
 
     useEffect(() => {
