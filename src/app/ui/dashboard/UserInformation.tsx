@@ -1,10 +1,11 @@
 import React from 'react';
 import Image from 'next/image';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../reducers/rootReducer';
+import rootReducer  from '../../reducers/rootReducer';
 import Swal from 'sweetalert2';
 
 const UserInformation = () => {
+    type RootState = ReturnType<typeof rootReducer>;
     const user = useSelector((state: RootState) => state.user);
 
     const handleFindDoctor = () => {
