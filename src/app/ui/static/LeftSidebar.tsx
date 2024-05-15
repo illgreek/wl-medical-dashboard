@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { usePathname } from 'next/navigation';
+import { useDispatch } from 'react-redux';
 
 interface LeftSidebarProps {
     isSidebarOpen: boolean;
@@ -10,6 +11,22 @@ interface LeftSidebarProps {
 }
 
 const LeftSidebar = ({ isSidebarOpen, toggleSidebar }: LeftSidebarProps) => {
+    const dispatch = useDispatch();
+    const handleLinkClick = async (path: string) => {
+        dispatch({ type: 'LOADING_START' });
+
+        try {
+            // Simulating a fetch
+            await fetch(path);
+
+            // Если загрузка успешно завершена, выключаем индикатор загрузки
+            dispatch({ type: 'LOADING_END' });
+        } catch (error) {
+            // Если произошла ошибка, обрабатываем её
+            console.error('Ошибка при загрузке данных:', error);
+            // Здесь вы также можете обновить состояние для отображения ошибки или выполнить другие действия
+        }
+    };
     const pathname = usePathname();
 
     // State to track hover status for each link
@@ -35,6 +52,7 @@ const LeftSidebar = ({ isSidebarOpen, toggleSidebar }: LeftSidebarProps) => {
                 <ul className="text-light_blue flex flex-col flex-1 gap-1">
                     <li className="p-2">
                         <Link href="/" className="flex items-center py-2 header-links"
+                              onClick={() => handleLinkClick('/')}
                               onMouseEnter={() => handleMouseEnter('dashboard')}
                               onMouseLeave={() => handleMouseLeave()}>
                             <div className="flex items-center">
@@ -51,6 +69,7 @@ const LeftSidebar = ({ isSidebarOpen, toggleSidebar }: LeftSidebarProps) => {
                     </li>
                     <li className="p-2">
                         <Link href="/my-doctors" className="flex items-center py-2 header-links"
+                              onClick={() => handleLinkClick('/my-doctors')}
                               onMouseEnter={() => handleMouseEnter('my-doctors')}
                               onMouseLeave={() => handleMouseLeave()}>
                             <div className="flex items-center">
@@ -67,6 +86,7 @@ const LeftSidebar = ({ isSidebarOpen, toggleSidebar }: LeftSidebarProps) => {
                     </li>
                     <li className="p-2">
                         <Link href="/test-results" className="flex items-center py-2 header-links"
+                              onClick={() => handleLinkClick('/test-results')}
                               onMouseEnter={() => handleMouseEnter('test-results')}
                               onMouseLeave={() => handleMouseLeave()}>
                             <div className="flex items-center">
@@ -83,6 +103,7 @@ const LeftSidebar = ({ isSidebarOpen, toggleSidebar }: LeftSidebarProps) => {
                     </li>
                     <li className="p-2">
                         <Link href="/my-consultations" className="flex items-center py-2 header-links"
+                              onClick={() => handleLinkClick('/my-consultations')}
                               onMouseEnter={() => handleMouseEnter('my-consultations')}
                               onMouseLeave={() => handleMouseLeave()}>
                             <div className="flex items-center">
@@ -99,6 +120,7 @@ const LeftSidebar = ({ isSidebarOpen, toggleSidebar }: LeftSidebarProps) => {
                     </li>
                     <li className="p-2">
                         <Link href="/settings" className="flex items-center py-2 header-links"
+                              onClick={() => handleLinkClick('/settings')}
                               onMouseEnter={() => handleMouseEnter('settings')}
                               onMouseLeave={() => handleMouseLeave()}>
                             <div className="flex items-center">
