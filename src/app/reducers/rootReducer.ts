@@ -9,5 +9,5 @@ const rootReducer = combineReducers({
     loading: loadingReducer,
 });
 
-export default rootReducer;
+export type RootState = ReturnType<typeof rootReducer>;
 
