@@ -134,7 +134,7 @@ const LeftSidebar = ({ isSidebarOpen, toggleSidebar }: LeftSidebarProps) => {
             </ul>
 
             <div className="mt-auto mb-4">
-                <button className='bg-blue text-white rounded-full p-2 fixed bottom-4 left-4 z-10' onClick={toggleSidebar} >
+                <button className='bg-blue text-white rounded-full p-2 fixed bottom-12 left-4 z-10' onClick={toggleSidebar} >
                     {isSidebarOpen ? (
                         <FiChevronLeft size={24} />
                     ) : (
