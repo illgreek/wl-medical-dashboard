@@ -6,8 +6,9 @@ import RegistrationForm from './RegistrationForm';
 import LeftSidebar from "@/app/ui/static/LeftSidebar";
 import { useCookies } from 'react-cookie';
 import UserInfoPanel from "@/app/ui/static/UserInfoPanel";
-import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import { FiChevronRight } from 'react-icons/fi';
 import Image from 'next/image';
+import Router from 'next/router';
 
 const defaultAvatar = '/assets/user.png'; // Default avatar image path
 
@@ -21,7 +22,12 @@ const RegistrationChecker = ({ children }: { children: React.ReactNode }) => {
     const user = useSelector((state: RootState) => state.user);
     const [cookies, setCookie] = useCookies(['user']);
     const [isChecking, setIsChecking] = useState(true);
-    const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return window.innerWidth > 1280;
+        }
+        return true;
+    });
 
     useEffect(() => {
         setTimeout(() => { // Start of timeout block
@@ -40,6 +46,35 @@ const RegistrationChecker = ({ children }: { children: React.ReactNode }) => {
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
     };
+
+    const handleResize = () => {
+        if (window.innerWidth <= 1280) {
+            setIsSidebarOpen(false);
+        } else {
+            setIsSidebarOpen(true);
+        }
+    };
+
+    useEffect(() => {
+        window.addEventListener('resize', handleResize);
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
+    // Listen for route changes to close the sidebar on smaller screens
+    useEffect(() => {
+        const handleRouteChange = () => {
+            if (window.innerWidth <= 1280) {
+                setIsSidebarOpen(false);
+            }
+        };
+
+        Router.events.on('routeChangeStart', handleRouteChange);
+        return () => {
+            Router.events.off('routeChangeStart', handleRouteChange);
+        };
+    }, []);
 
     const renderContent = () => {
         if (loading) {
@@ -63,7 +98,7 @@ const RegistrationChecker = ({ children }: { children: React.ReactNode }) => {
                 <>
                     <div className="overflow-y-auto">
                         {isSidebarOpen && <LeftSidebar key="sidebar" isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />}
-                        <div className={`${isSidebarOpen ? 'pl-64' : ''}`}>
+                        <div className={`${isSidebarOpen ? 'xl:pl-64' : ''} ${isSidebarOpen ? 'pl-0 w-full xl:w-auto' : 'pl-0 w-full'}`}>
                             <UserInfoPanel/>
                             {renderContent()}
                         </div>

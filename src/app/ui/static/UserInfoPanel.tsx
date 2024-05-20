@@ -80,7 +80,7 @@ const UserInfoSidebar = () => {
     return (
         <div className="w-full flex flex-row items-center p-8 justify-between">
             <div className="flex flex-row gap-4">
-                <div className="flex flex-row items-center gap-4 bg-blue text-white rounded p-2">
+                <div className="flex-row items-center gap-4 bg-blue text-white rounded p-2  hidden md:flex">
                     <p className="text-white font-bold">{userLocation}</p>
                     <div className="flex flex-row items-center">
                         <p className="text-white">{temperature}&deg;C</p>
@@ -94,10 +94,12 @@ const UserInfoSidebar = () => {
                     </div>
                 </div>
 
-                <div className="flex flex-row items-center gap-4 bg-pink p-2 rounded">
+                <div className=" flex-row items-center gap-4 bg-pink p-2 rounded hidden md:flex">
                     <p className="text-white font-bold">Time:</p>
                     <Clock format={'HH:mm'} ticking={true} className="text-white"/>
                 </div>
+
+                <Image className="visible md:hidden" src={'/assets/logo-nda.svg'} alt={''} width={52} height={70} />
             </div>
 
             <div className="flex flex-row items-center gap-2">
@@ -129,7 +131,7 @@ const UserInfoSidebar = () => {
                         {/* Conditionally render "Exit" button */}
                         {showExitButton && (
                             <button onClick={handleExit} className="bg-blue text-center text-white p-2 mt-4 hover:bg-light_blue w-full rounded-md absolute bottom-[-50px] left-1/2 transform -translate-x-1/2">
-                               Sign out
+                                Sign out
                             </button>
                         )}
                     </div>
@@ -140,4 +142,3 @@ const UserInfoSidebar = () => {
 };
 
 export default UserInfoSidebar;
-

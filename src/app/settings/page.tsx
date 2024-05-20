@@ -2,6 +2,7 @@
 import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import { useCookies } from 'react-cookie';
 import Image from "next/image";
+import Swal from 'sweetalert2';
 
 const UserProfileForm = () => {
     const [cookies, setCookie] = useCookies(['user']);
@@ -55,21 +56,26 @@ const UserProfileForm = () => {
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setCookie('user', formData, { path: '/' });
-        alert('Form submitted successfully!');
+        Swal.fire({
+            icon: 'success',
+            title: 'Profile Updated',
+            text: 'Your profile has been updated successfully!',
+            confirmButtonText: 'OK'
+        });
     };
 
     return (
-        <div className="flex mt-4 p-6 bg-white rounded-lg mx-8 mb-6 gap-4">
+        <div className="flex flex-col lg:flex-row mt-4 p-6 bg-white rounded-lg mx-4 lg:mx-8 mb-6 gap-4">
             {/* Avatar */}
-            <div className="w-1/6 flex flex-col items-center">
+            <div className="w-full lg:w-1/4 flex flex-col items-center mb-4 lg:mb-0">
                 <Image src={formData.avatar} width={200} height={200} alt="User Avatar" className="h-32 w-32 rounded-full mb-4 aspect-square" />
                 <label htmlFor="avatar-upload" className="block w-full text-center text-blue underline cursor-pointer hover:text-light_blue focus:outline-none focus:bg-blue-600">Change Photo</label>
                 <input type="file" id="avatar-upload" accept="image/*" onChange={handleAvatarChange} className="hidden" />
             </div>
             {/* User Details */}
-            <div className="w-2/4">
+            <div className="w-full lg:w-3/4">
                 <form onSubmit={handleSubmit} className="">
-                    <div className="flex flex-row gap-4">
+                    <div className="flex flex-col lg:flex-row gap-4">
                         <div className="w-full">
                             <label className="mb-2 text-light_blue" htmlFor="name">Name</label>
                             <input type="text" name="name" placeholder="Name" value={formData.name}
@@ -83,10 +89,8 @@ const UserProfileForm = () => {
                                    onChange={handleChange}
                                    className="block w-full px-4 py-2 mb-4 border bg-b_tr border-none focus:outline-none rounded-full text-black"/>
                         </div>
-
-
                     </div>
-                    <div className="flex flex-row gap-4">
+                    <div className="flex flex-col lg:flex-row gap-4">
                         <div className="w-full">
                             <label className="mb-2 text-light_blue" htmlFor="dob">Date of Birth</label>
                             <input type="date" name="dob" placeholder="Date of Birth" value={formData.dob}
@@ -109,12 +113,11 @@ const UserProfileForm = () => {
                                 </svg>
                             </div>
                         </div>
-
                     </div>
 
                     <div className="w-full h-2 border-b-2 border-gray_light mb-6"></div>
 
-                    <div className="flex flex-row gap-4">
+                    <div className="flex flex-col lg:flex-row gap-4">
                         <div className="w-full">
                             <label className="mb-2 text-light_blue" htmlFor="height">Height</label>
                             <input type="number" name="height" placeholder="Height" value={formData.height}
@@ -128,16 +131,13 @@ const UserProfileForm = () => {
                                    onChange={handleChange}
                                    className="block w-full px-4 py-2 mb-4 border bg-b_tr border-none focus:outline-none rounded-full text-black"/>
                         </div>
-
                     </div>
-                    {/* Add input field for Chronic Diseases */}
                     <label className="mb-2 text-light_blue" htmlFor="chronicDiseases">Chronic Diseases</label>
                     <textarea name="chronicDiseases" placeholder="Type here"
                               value={formData.chronicDiseases} onChange={handleChange}
                               className="block w-full h-24 px-4 py-2 mb-4 border bg-b_tr border-none focus:outline-none rounded-lg text-black resize-vertical"/>
-                    {/* Add button for saving */}
                     <button type="submit"
-                            className="block  px-6 py-2 text-white bg-blue rounded-full hover:bg-light_blue focus:outline-none focus:bg-blue-600">Save
+                            className="block px-6 py-2 text-white bg-blue rounded-full hover:bg-light_blue focus:outline-none focus:bg-blue-600">Save
                     </button>
                 </form>
             </div>

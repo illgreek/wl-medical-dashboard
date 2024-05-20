@@ -1,3 +1,4 @@
+// Chart.tsx
 // @ts-nocheck
 import React from 'react';
 import { Line } from 'react-chartjs-2';
@@ -103,15 +104,14 @@ const ChartComponent = () => {
         },
     };
 
-    // @ts-ignore
+
     return (
-        <div className="w-2/3 bg-white p-4 rounded-lg">
+        <div className="w-full lg:w-2/3 bg-white p-4 rounded-lg">
             <div className="flex flex-row items-center justify-between">
                 <p className="text-2xl font-semibold">Latest Results</p>
             </div>
             <p className="text-xl font-semibold">Blood sugar</p>
-
-            <Line data={chartData} options={options}/>
+            <Line data={chartData} options={options} />
         </div>
     );
 };

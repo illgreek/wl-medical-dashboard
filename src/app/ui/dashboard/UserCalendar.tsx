@@ -1,3 +1,4 @@
+// UserCalendar.tsx
 'use client';
 import React, { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
@@ -16,7 +17,7 @@ interface Appointment {
 // Define the type for Calendar's value
 type CalendarValue = Date | [Date, Date] | null;
 
-const AppointmentCard = () => {
+const UserCalendar = () => {
     const [cookies] = useCookies(['user']); // Initialize useCookies hook
     const [appointment, setAppointment] = useState<Appointment | null>(null); // State for storing the latest appointment
     const [showVideoPopup, setShowVideoPopup] = useState(false);
@@ -55,9 +56,8 @@ const AppointmentCard = () => {
         return null;
     };
 
-
     return (
-        <div className="w-1/3 px-4">
+        <div className="w-full lg:w-1/3 px-0 lg:px-4">
             <Calendar
                 value={selectedDate}
                 // @ts-ignore
@@ -95,14 +95,12 @@ const AppointmentCard = () => {
                         </div>
                     </>
                 ) : (
-                    <div  className="flex flex-col gap-2">
+                    <div className="flex flex-col gap-2">
                         <p className="text-center text-gray-500 font-semibold text-lg">No appointments available.</p>
-                        <Link href={'/my-doctors'}
-                              className="bg-blue text-center text-white rounded-lg p-2 mt-4 hover:bg-light_blue">
+                        <Link href={'/my-doctors'} className="bg-blue text-center text-white rounded-lg p-2 mt-4 hover:bg-light_blue">
                             Schedule a consultation
                         </Link>
                     </div>
-
                 )}
             </div>
 
@@ -123,4 +121,4 @@ const AppointmentCard = () => {
     );
 };
 
-export default AppointmentCard;
+export default UserCalendar;

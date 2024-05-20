@@ -66,7 +66,7 @@ const UserCalendar = () => {
     };
 
     return (
-        <div className="user-calendar-container px-8 pt-4 pb-6 h-[600px]">
+        <div className="user-calendar-container px-4 lg:px-8 pt-4 pb-6 h-[600px]">
             {events.length > 0 ? (
                 <Calendar
                     localizer={localizer}
@@ -95,7 +95,7 @@ const UserCalendar = () => {
                 <div className="flex flex-col items-center justify-center h-full">
                     <p className="text-center text-gray-500 font-semibold text-lg">No appointments available.</p>
                     <Link href="/my-doctors" className="bg-blue text-center text-white rounded-lg p-2 mt-4 hover:bg-light_blue">
-                            Schedule a consultation
+                        Schedule a consultation
                     </Link>
                 </div>
             )}
