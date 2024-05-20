@@ -17,7 +17,7 @@
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
+  color: black;
   background: #E5EEFF;
 }
 
@@ -287,5 +287,23 @@ p, h1, h2, h3, h4, h5, h6{
 .header-links:hover span{
   color: #1A65F5 !important;
 }
+
+.rbc-agenda-view table.rbc-agenda-table tbody > tr > td{
+  color: white !important;
+  border-bottom: 1px solid #FFFFFF;
+}
+
+.rbc-row-segment .rbc-event .rbc-event-content{
+  color: white !important;
+}
+
+.react-calendar__navigation button:enabled:hover, .react-calendar__navigation button:enabled:focus{
+  background: #f8f8fa !important;
+  color: #FF7BAC !important;
+  border-radius: 0.5rem !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
 
 

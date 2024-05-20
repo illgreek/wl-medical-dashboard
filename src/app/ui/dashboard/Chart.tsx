@@ -108,7 +108,6 @@ const ChartComponent = () => {
         <div className="w-2/3 bg-white p-4 rounded-lg">
             <div className="flex flex-row items-center justify-between">
                 <p className="text-2xl font-semibold">Latest Results</p>
-                <p className="text underline text-pink font-semibold">Check</p>
             </div>
             <p className="text-xl font-semibold">Blood sugar</p>
 

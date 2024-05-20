@@ -128,8 +128,8 @@ const UserInfoSidebar = () => {
                         </p>
                         {/* Conditionally render "Exit" button */}
                         {showExitButton && (
-                            <button onClick={handleExit} className="text-white bg-red-500 hover:bg-red-700 px-2 py-1 rounded-md absolute bottom-[-40px] left-1/2 transform -translate-x-1/2">
-                                Exit
+                            <button onClick={handleExit} className="bg-blue text-center text-white p-2 mt-4 hover:bg-light_blue w-full rounded-md absolute bottom-[-50px] left-1/2 transform -translate-x-1/2">
+                               Sign out
                             </button>
                         )}
                     </div>

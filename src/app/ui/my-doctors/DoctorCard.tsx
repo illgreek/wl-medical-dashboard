@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { useCookies } from 'react-cookie';
 import Swal from 'sweetalert2';
-import Link from 'next/link'; // Import Link from next.js
+import { useRouter, usePathname } from 'next/navigation'; // Import useRouter and usePathname from next/navigation
 
 interface Doctor {
     name: string;
@@ -17,10 +17,11 @@ interface Doctor {
 const DoctorCard = ({ doctor }: { doctor: Doctor }) => {
     const { name, specialty, experience, city, state, imageUrl } = doctor;
     const [cookies, setCookie] = useCookies(['user']);
+    const router = useRouter(); // Initialize useRouter from next/navigation
+    const pathname = usePathname(); // Initialize usePathname from next/navigation
 
     const handleBookConsultation = (selectedDate: string, selectedTime: string) => {
         if (!selectedDate || !selectedTime) {
-            // Показываем сообщение об ошибке, если данные не заполнены
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
@@ -29,7 +30,6 @@ const DoctorCard = ({ doctor }: { doctor: Doctor }) => {
             return;
         }
 
-        // Проверяем, есть ли уже запись о данном враче в массиве врачей в куки
         const doctorsArray = cookies.user?.doctors || [];
         const doctorExists = doctorsArray.some((doc: any) => doc.name === name);
 
@@ -54,28 +54,41 @@ const DoctorCard = ({ doctor }: { doctor: Doctor }) => {
         const updatedUser = { ...cookies.user, doctors: updatedDoctorsArray };
         setCookie('user', JSON.stringify(updatedUser), { path: '/' });
 
-        // Показываем уведомление об успешном создании
         Swal.fire({
             icon: 'success',
             title: 'Success!',
-            text: `Consultation booked for ${selectedDate} at ${selectedTime}.`,
+            text: `Consultation booked with ${name} (Specialty: ${specialty}) for ${selectedDate} at ${selectedTime}.`,
             showCancelButton: true,
-            confirmButtonText: 'My Consultations', // Add the "My Consultations" button
+            confirmButtonText: 'My Consultations',
             cancelButtonText: 'Close',
         }).then((result) => {
             if (result.isConfirmed) {
-                // Redirect to My Consultations page
-                <Link href="/my-consultations" />;
+                // Redirect to My Consultations page using router.push
+                router.push('/my-consultations');
             }
         });
     };
 
     const openBookingPopup = () => {
+        // Generate time options for 12:00 PM to 6:00 PM with 30-minute intervals
+        const timeOptions = [];
+        for (let hour = 12; hour <= 18; hour++) {
+            for (let minutes = 0; minutes < 60; minutes += 30) {
+                const time = `${hour.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+                timeOptions.push(`<option value="${time}">${time}</option>`);
+            }
+        }
+
+        // Get tomorrow's date in YYYY-MM-DD format
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        const minDate = tomorrow.toISOString().split('T')[0];
+
         Swal.fire({
             title: 'Book Consultation',
             html: `
-                <input type="date" id="swal-date" class="swal2-input">
-                <input type="time" id="swal-time" class="swal2-input">
+                <input type="date" id="swal-date" class="swal2-input" min="${minDate}">
+                <select id="swal-time" class="swal2-input">${timeOptions.join('')}</select>
             `,
             showCancelButton: true,
             confirmButtonText: 'Book',
@@ -83,7 +96,7 @@ const DoctorCard = ({ doctor }: { doctor: Doctor }) => {
             focusConfirm: false,
             preConfirm: () => {
                 const dateInput = document.getElementById('swal-date') as HTMLInputElement;
-                const timeInput = document.getElementById('swal-time') as HTMLInputElement;
+                const timeInput = document.getElementById('swal-time') as HTMLSelectElement;
                 const selectedDate = dateInput.value;
                 const selectedTime = timeInput.value;
                 handleBookConsultation(selectedDate, selectedTime);
