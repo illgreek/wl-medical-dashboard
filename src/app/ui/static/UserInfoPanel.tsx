@@ -125,12 +125,23 @@ const UserInfoSidebar = () => {
                 {/* Render user name */}
                 {userInfo && (
                     <div className="relative text-center cursor-pointer" onClick={handleNameClick}>
-                        <p className="select-none font-medium">
-                            {userInfo.name} {showExitButton ? <>&#9652;</> : <>&#9662;</>}
+                        <p className="select-none font-medium flex gap-1 items-center justify-center">
+                            {userInfo.name} {showExitButton ? <>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
+                                <path fill="black"
+                                      d="m4.427 7.427l3.396 3.396a.25.25 0 0 0 .354 0l3.396-3.396A.25.25 0 0 0 11.396 7H4.604a.25.25 0 0 0-.177.427"/>
+                            </svg>
+                        </> : <>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
+                                <path fill="black"
+                                      d="m4.427 9.573l3.396-3.396a.25.25 0 0 1 .354 0l3.396 3.396a.25.25 0 0 1-.177.427H4.604a.25.25 0 0 1-.177-.427"/>
+                            </svg>
+                        </>}
                         </p>
                         {/* Conditionally render "Exit" button */}
                         {showExitButton && (
-                            <button onClick={handleExit} className="w-[150px] bg-blue text-center text-white p-2 mt-4 hover:bg-light_blue rounded-md absolute right-0 top-[100%]">
+                            <button onClick={handleExit}
+                                    className="w-[150px] bg-blue text-center text-white p-2 mt-4 hover:bg-light_blue rounded-md absolute right-0 top-[100%]">
                                 Sign out
                             </button>
                         )}
